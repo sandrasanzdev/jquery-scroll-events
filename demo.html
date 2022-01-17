@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>scrollEvents demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+            margin: 0;
+        }
+
+        .big-block {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 3rem;
+            box-sizing: border-box;
+        }
+
+        .big-block:nth-child(1) {
+            background-color: firebrick;
+        }
+
+        .big-block:nth-child(2) {
+            background-color: goldenrod;
+        }
+
+        .big-block:nth-child(3) {
+            background-color: seagreen;
+        }
+
+        .big-block:nth-child(4) {
+            background-color:indigo
+        }
+
+        .big-text {
+            color: white;
+            font-size: 3rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+  
+    <div class="big-block">
+        <p class="big-text">Open DevTools and check the console log.</p>
+    </div>
+
+    <div class="big-block">        
+    </div>
+
+    <div class="big-block">        
+    </div>
+
+    <div class="big-block">        
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="scrollEvents.js"></script>
+
+    <script>
+        (function($) {
+
+            $( document ).ready(function() {
+                
+                window.ssanzdev_scrollEvents.init();
+
+                $(window).on( 'ssanzdev_scroll_up', function( event, current_position, last_position ) {
+                    var scrolled_distance = last_position - current_position;
+                    console.log( 'Scrolled up ' + scrolled_distance + 'px.' );
+                });
+
+                $(window).on( 'ssanzdev_scroll_down', function( event, current_position, last_position ) {
+                    var scrolled_distance = current_position - last_position;
+                    console.log( 'Scrolled down ' + scrolled_distance + 'px.' );
+                });
+
+                $(window).on( 'ssanzdev_scroll_reached_top', function( event, last_position ) {
+                    console.log( 'Reached top!' );
+                });
+
+                $(window).on( 'ssanzdev_scroll_reached_bottom', function( event, last_position ) {
+                    console.log( 'Reached bottom! Stop triggering scroll events.' );
+                    window.ssanzdev_scrollEvents.destroy();
+                });
+
+            });
+            
+        })(jQuery);
+    </script>
+
+</body>
+
+</html>
